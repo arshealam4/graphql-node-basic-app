@@ -31,12 +31,6 @@
 
 - [MongoDB](https://docs.mongodb.com/manual/installation/) is really easy to install, click here [MongoDB](https://docs.mongodb.com/manual/installation/) and follow the step to install mongoDB.
 
-## Quick Start
-
-- We can run our project with docker or follow simple steps as given below(Run Project).
-
-### Start docker
-
 ### Run Project
 
 - git clone https://github.com/arshealam4/graphql-node-basic-app.git
