@@ -1,8 +1,0 @@
-# Dependency directories
-node_modules/
-
-#default.json file
-.idea
-.idea/*
-/package-lock.json
-yarn.lock
