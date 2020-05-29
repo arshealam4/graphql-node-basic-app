@@ -32,7 +32,11 @@ module.exports = {
         password: hashedPw,
       });
       const createdUser = await user.save();
-      return createdUser;
+      return {
+        status: true,
+        code: 200,
+        result: createdUser,
+      };
     } catch (err) {
       throw new Error(err);
     }
@@ -64,7 +68,11 @@ module.exports = {
         config.secret,
         { expiresIn: config.tokenExpiry }
       );
-      return { token: token, userId: user._id.toString() };
+      return {
+        status: true,
+        code: 200,
+        result: { token: token, userId: user._id.toString() },
+      };
     } catch (err) {
       throw new Error(err);
     }
@@ -78,7 +86,11 @@ module.exports = {
     }
     try {
       const users = await User.find();
-      return users;
+      return {
+        status: true,
+        code: 200,
+        result: users,
+      };
     } catch (err) {
       throw new Error(err);
     }
@@ -90,7 +102,11 @@ module.exports = {
     }
     try {
       const user = await User.findById(id);
-      return user;
+      return {
+        status: true,
+        code: 200,
+        result: user,
+      };
     } catch (err) {
       throw new Error(err);
     }

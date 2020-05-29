@@ -14,6 +14,28 @@ module.exports = buildSchema(`
         userId: String!
     }
 
+    type LoginResponse {
+        status: Boolean!
+        code: Int!
+        result: AuthData!
+    }
+    type SignupResponse {
+        status: Boolean!
+        code: Int!
+        result: User!
+    }
+    type UsersResponse {
+        status: Boolean!
+        code: Int!
+        result: [User!]
+    }
+
+    type UserResponse {
+        status: Boolean!
+        code: Int!
+        result: User!
+    }
+
     input UserInputData {
         email: String!
         name: String!
@@ -21,13 +43,13 @@ module.exports = buildSchema(`
     }
 
     type RootQuery {
-        login(email: String!, password: String!): AuthData!
-        users: [User!]
-        user(id: ID!): User!
+        login(email: String!, password: String!): LoginResponse!
+        users: UsersResponse!
+        user(id: ID!): UserResponse!
     }
 
     type RootMutation {
-        signup(userInput: UserInputData): User!
+        signup(userInput: UserInputData): SignupResponse!
     }
 
     schema {
