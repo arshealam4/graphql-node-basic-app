@@ -8,8 +8,9 @@ const auth = require("./middleware/auth");
 
 const app = express();
 
-app.use(bodyParser.json());
+app.use(bodyParser.json()); // middleware for incoming data
 
+// allow origing, methods and heades
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
