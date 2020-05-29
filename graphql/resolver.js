@@ -84,7 +84,7 @@ module.exports = {
     }
   },
 
-  user: async function ({ id }, req) {
+  user: async function ({ id }) {
     if (validator.isEmpty(id)) {
       throw new Error("Invalid Input Parameter");
     }
