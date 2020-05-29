@@ -42,27 +42,32 @@ module.exports = {
     if (!validator.isEmail(email) || validator.isEmpty(password)) {
       throw new Error("Invalid Input Parameter");
     }
-    const user = await User.findOne({ email: email });
-    if (!user) {
-      const error = new Error("User not found.");
-      error.code = 400;
-      throw error;
+
+    try {
+      const user = await User.findOne({ email: email });
+      if (!user) {
+        const error = new Error("User not found.");
+        error.code = 400;
+        throw error;
+      }
+      const isEqual = await bcrypt.compare(password, user.password);
+      if (!isEqual) {
+        const error = new Error("Password is incorrect.");
+        error.code = 400;
+        throw error;
+      }
+      const token = jwt.sign(
+        {
+          userId: user._id.toString(),
+          email: user.email,
+        },
+        config.secret,
+        { expiresIn: config.tokenExpiry }
+      );
+      return { token: token, userId: user._id.toString() };
+    } catch (err) {
+      throw new Error(err);
     }
-    const isEqual = await bcrypt.compare(password, user.password);
-    if (!isEqual) {
-      const error = new Error("Password is incorrect.");
-      error.code = 400;
-      throw error;
-    }
-    const token = jwt.sign(
-      {
-        userId: user._id.toString(),
-        email: user.email,
-      },
-      config.secret,
-      { expiresIn: config.tokenExpiry }
-    );
-    return { token: token, userId: user._id.toString() };
   },
 
   users: async function ({}, req) {
@@ -71,7 +76,11 @@ module.exports = {
       error.code = 401;
       throw error;
     }
-    const users = await User.find();
-    return users;
+    try {
+      const users = await User.find();
+      return users;
+    } catch (err) {
+      throw new Error(err);
+    }
   },
 };
