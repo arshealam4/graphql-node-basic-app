@@ -83,4 +83,16 @@ module.exports = {
       throw new Error(err);
     }
   },
+
+  user: async function ({ id }, req) {
+    if (validator.isEmpty(id)) {
+      throw new Error("Invalid Input Parameter");
+    }
+    try {
+      const user = await User.findById(id);
+      return user;
+    } catch (err) {
+      throw new Error(err);
+    }
+  },
 };
